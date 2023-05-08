@@ -1,0 +1,27 @@
+id;project;bua_institut.type;type.label;sdg.level;name.sdg;level.of.engagement;name.of.engagement
+i01;HU Berlin;1;HU Berlin;;;0;
+i02;Free University Berlin;2;Free University Berlin;;;0;
+i03;Charité;3;Charité;;;0;
+i04;Technical University Berlin;4;Technical University Berlin;;;0;
+s01;Mind the Fungi!;;Technical University Berlin ;12;SDG 12 Responsible consumption and production;;Transdisziplinär/Citizen Science
+s02;Open Urban Climate Observatory Berlin for environmental research and applications;;"Technical University Berlin;Free University Berlin";13;SDG 13 Climate Action;0;Citizen Science
+s03;Deine emotionale Stadt;;"HU Berlin;Charité;Technical University Berlin";11;SDG 11 Sustainable Cities and Communities;3;Citizen Science
+s04;Blühender Campus FU;;Free University Berlin;15;SDG 15 Life on land;2;Citizen Science
+s05;Citizen Science @FESSTVaL;;Free University Berlin;13;SDG 13 Climate Action;1;Citizen Science
+s06;SimRa: Sicherheit im Radverkehr;;Technical University Berlin;11;SDG 11 Sustainable cities and communities;1;Citizen Science
+s07;Freemove;;"Free University Berlin;Technical University Berlin";11;SDG 11 Sustainable cities and communities;0;Transdisziplinär
+s08;EdibleCitiesNetwork – Integrating edible city solutions for social, resilient and sustainably productive cities (EDiCitNet);;Humboldt University;2, 11;SDG 2 Zero Hunger, SDG 11 Sustainable cities and communities;0;Sonstiges
+s09;StadtUmMig – Vom Stadtumbauschwerpunkt zum Einwanderungsquartier;;Humboldt University;11;SDG 11 Sustainable cities and communities;0;lässt sich vorerst nicht kategorisieren 
+s10;Humboldt Explorers;;Humboldt University;4;SDG4: Quality Education;0;Citizen Science
+s11;Stadtarboretum – Baumlandschaft der Zukunft;;Humboldt University;11;SDG 11 Sustainable cities and communities;0;Citizen Science
+s12;Open Heritage;;Humboldt University;11;SDG 11 Sustainable cities and communities;0;Reallabor
+s13;NutriGreen;;Humboldt University;2;SDG 2 Zero hunger;0;"Citizen Science;Sonstiges: Community driven research "
+s14;RECIPES;;Humboldt University;0;0;0;Transdisciplinary
+s15;Ginkoo;;Humboldt University;9, 12,15;"SDG 9 Industry, Innovation and Infrastructure;SDG 12 Responsible Consumption and production;SDG 15 Life on land";0;Lässt sich vorerst nicht kategorisieren 
+s16;Urbane Klima-Gärten: Bildungsinitiative in der Modellregion Berlin;;Humboldt University;15;SDG 15 Life on land;0;Sonstiges
+s17;Stadtlabor for Multimodal Anthropology;;Humboldt University;11;SDG 11 Sustainable cities and communities;0;Reallabor
+s18;Polytopia;;"Technical University Berlin;Free University Berlin";4;SDG 4 Quality education;0;Citizen Science
+s19;Schmeck-Projekt;;Technical University Berlin;2, 3;"SDG 2 Zero Hunger;SDG 3 GoodHealth&Well-being";;Citizen Science, Transdisziplinäre Forschung
+s20;Jetzt messen wir BerlinAir NO2-Atlas;;Technical University Berlin;13;SDG 13 Climate Action;;Citizen Science
+s21;Virtual LimitLab;;Charité - Universitätsmedizin Berlin;3;SDG 3 Good Health and Well-being;;Transdisziplinäre Forschung, Reallabor
+s22;SlcGA: Intervention bei suizidalem Verhalten junger Erwachsener mit Migrationshintergrund;;Charité - Universitätsmedizin Berlin;3;SDG 3 Good Health and Well-being;;Patientenbeteiligung
