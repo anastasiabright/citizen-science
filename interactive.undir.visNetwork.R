@@ -1,6 +1,6 @@
-library(igraph)
-library(visNetwork)
-library(readxl)
+#library(igraph)
+#library(visNetwork)
+#library(readxl)
 
 
 # Read in the data:
@@ -44,9 +44,9 @@ vis.nodes$shadow <- TRUE # Nodes will drop shadow
 #                                       "<br> Website: ", vis.nodes$project.website))
 
 
-vis.nodes$title <- paste("Sustainable Development Goals: ", vis.nodes$goal, 
-                         "<br>Description: ", vis.nodes$description, 
-                         "<br>Website: ", vis.nodes$project.website)
+vis.nodes$title <- paste("<b>Goal</b>: ", vis.nodes$goal,"<br>",
+                         "<br><b>Description</b>: ", vis.nodes$description, "<br>", 
+                         "<br><b>Website(s)</b>: ", vis.nodes$project.website)
 vis.nodes$label  <- vis.nodes$project # Node label
 vis.nodes$color.label  <- "black"
 vis.nodes$size   <- as.numeric(vis.nodes$quantity_bua_uni_involved)*20 # Node size
@@ -85,6 +85,7 @@ visnet <- visNetwork(vis.nodes, vis.links, background="#ffffff",
   # #, multiple = T
   visPhysics(solver = "forceAtlas2Based",
              forceAtlas2Based = list(gravitationalConstant = -150))
+  #visLegend(main="Legend", position="right", addNodes = lnodes, ncol=1)
   # visPhysics(solver = "barnesHut",
   #            barnesHut = list(gravity = -200, centralGravity = 0.05,
   #                             springLength = 100, springConstant = 0.05,

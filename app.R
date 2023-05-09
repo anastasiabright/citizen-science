@@ -3,12 +3,14 @@ library(visNetwork)
 library(readxl)
 library(dplyr)
 library(stringr)
+library(shinyjs)
 
 source("interactive.undir.visNetwork.R", encoding = "UTF-8")
 
 ui <- fluidPage(
-  titlePanel("BUA Citizen Science Network"),
-  tags$h3(style = "text-align:left; margin-top:-10px; margin-bottom:20px;",
+  useShinyjs(),
+  tags$h2(style = "font-size: 25px;", "BUA Citizen Science Network"),
+  tags$h3(style = "text-align:left; margin-top:-10px; margin-bottom:20px; font-size: 15px;",
           "Sustainability, current runtime and cooperation with other universities"),
   tags$head(
     tags$style(
@@ -27,7 +29,7 @@ ui <- fluidPage(
   ),
 
   mainPanel(
-    visNetworkOutput("visnet", height = "400px", width = "150%")
+    visNetworkOutput("visnet", height = "100%", width = "100%")
   )
 )
 
@@ -57,6 +59,10 @@ server <- function(input, output) {
   #     visnet <- input$visnet
   #   )
   # })
+  observe({
+    shinyjs::runjs('$("#visnet").height($(window).height());')
+    shinyjs::runjs('$("#visnet").width($(window).width());')
+  })
 }
 
 # Run the application
