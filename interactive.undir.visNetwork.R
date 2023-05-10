@@ -3,13 +3,9 @@
 #library(readxl)
 
 
-# Read in the data:
-#nodes <- read.csv("data/cs_nodes_v3.csv", header=T, sep = ";", fileEncoding = "UTF-16LE")
+# Read in the data
 nodes <- read_excel("data/cs_nodes.xlsx")
-#links <- read.csv("data/cs_edges_v3.csv", header=T, sep = ";", encoding = "UTF-8")
 links <- read_excel("data/cs_edges.xlsx")
-#net_undir<-  graph_from_data_frame(d=links, vertices=nodes, directed=F) 
-
 
 ########## Wrap long strings in project names ####################
 wrap_strings <- function(vector_of_strings,width){
@@ -18,40 +14,29 @@ wrap_strings <- function(vector_of_strings,width){
   }))
 }
 
-
-# Apply the function to wrap the node labels (to 20 characters)
-#V(net.js)$project = wrap_strings(V(net.js)$project, 20)
-
-########## First attempt ########
-# visNetwork(nodes, links, width="100%", height="400px", background="#eeefff",
-#            main="BUA Citizen Science Network", submain="Sustainability and Co.",
-#            footer= "Click on any node to see more information")
-
-########## Second attempt ##########
-
-# We'll start by adding new node and edge attributes to our dataframes. 
 nodes$project = wrap_strings(nodes$project, 20)
 vis.nodes <- nodes
 vis.links <- links
 
-selected_nodes <- c("i01", "i02", "i03", "i04")
+# # Define different node shapes for universities and projects
+# selected_nodes <- c("i01", "i02", "i03", "i04")
+# vis.nodes$shape <- ifelse(nodes$id %in% selected_nodes, "box", "circle")
 
-vis.nodes$shape <- ifelse(nodes$id %in% selected_nodes, "box", "circle")
-vis.nodes$shadow <- TRUE # Nodes will drop shadow
-
-# vis.nodes <- data.frame(title = paste("Goal pf the project: ", vis.nodes$goal, 
-#                                       "<br> Description: ", vis.nodes$description,
-#                                       "<br> Website: ", vis.nodes$project.website))
-
+# Nodes will drop shadow
+vis.nodes$shadow <- TRUE
 
 vis.nodes$title <- paste("<b>Goal</b>: ", vis.nodes$goal,"<br>",
                          "<br><b>Description</b>: ", vis.nodes$description, "<br>", 
                          "<br><b>Website(s)</b>: ", vis.nodes$project.website)
-vis.nodes$label  <- vis.nodes$project # Node label
+vis.nodes$label  <- vis.nodes$project
 vis.nodes$color.label  <- "black"
-vis.nodes$size   <- as.numeric(vis.nodes$quantity_bua_uni_involved)*20 # Node size
+
+######################################################################
+# Define size of nodes by numbr of scientists ???
+#vis.nodes$size  <- as.numeric(vis.nodes$scientists_n)*20
 vis.nodes$borderWidth <- 1 # Node border width
 
+### Coloring by SDG level
 #############################################################
 # selected_sdg <- "SDG 13 Climate Action"
 # filtered_nodes <- vis.nodes[vis.nodes$name.sdg == selected_sdg,]$id
@@ -68,24 +53,50 @@ vis.nodes$color.highlight.background <- "orange"
 vis.nodes$color.highlight.border <- "darkred"
 
 
-#vis.links$width <- 1+vis.links$type/8 # line width
-vis.links$color <- "gray"    # line color  
+vis.links$width <- 1 + vis.links$type*2 # line width
+vis.links$color <- "darkgray"    # line color  
 vis.links$arrows <- "from" # arrows: 'from', 'to', or 'middle'
 vis.links$smooth <- FALSE    # should the edges be curved?
 vis.links$shadow <- FALSE    # edge shadow
 
+
+###########################################################################
+# shapes <- c("square", "ellipse", "triangle", "diamond", "circle", "star")#, "box")
+# shapes <- rep(shapes, length.out = nrow(vis.nodes))
+# vis.nodes$shape <- shapes[vis.nodes$level.of.engagement]
+shapes = c("square", "ellipse", "triangle", "diamond", "circle", "star", "dot")    
+#color = c("darkred", "grey", "orange", "darkblue", "purple") # control shape of nodes
+#vis.nodes$shape <- vis.nodes[vis.nodes$level.of.engagement == shapes,]$level.of.engagement
+
+# Create a new vector that repeats the 'shapes' vector to match the number of nodes
+num_nodes <- nrow(vis.nodes)
+shapes_rep <- rep(shapes, length.out = num_nodes)
+
+# Add a new column to 'vis.nodes' with the corresponding shape for each node
+vis.nodes$shape <- shapes_rep[1:num_nodes]
+
+### Add nodes for Legend
+addNodes <- data.frame(label = c("Running project", "Expired project"), shape = "circle",
+                      icon.color = c("green", "lightblue"), color.border = "black") #icon.code = c("f0c0", "f007"),
+
 visnet <- visNetwork(vis.nodes, vis.links, background="#ffffff",
                      #main="BUA Citizen Science Network", 
-                     #submain="Sustainability, current runtime and cooperation with other universities",
+                     #submain="Click on a node to see more information",
                      footer= "Click on a node to see more information",
-                     clickEvent = TRUE) |> #highlightEdges = TRUE, , height="400px",layout = "layout_with_fr"
-  #visNodes(vis.nodes, color = ifelse(vis.nodes$running, "green", "blue")) |>
-  # visOptions(highlightNearest = list(enabled = TRUE, degree = 1),
-  #           selectedBy = list(variable = "name.sdg", highlight = T)) |>
-  # #, multiple = T
+                     clickEvent = TRUE) |> 
+  visOptions(highlightNearest = TRUE, nodesIdSelection = TRUE) %>%
+  visLayout(randomSeed = 42) |>
+  #visGroups(groupname = "Citizen Science", shape = "square") |>
+                       #color = list(background = "gray", border="black")) |>
+  # visGroups(groupname = "TV", shape = "dot",       
+  #                    color = list(background = "tomato", border="black"))
+  # visGroups(groupname = "Online", shape = "diamond",   
+  #                    color = list(background = "orange", border="black")) |>
+  visLegend(useGroups = FALSE, addNodes = addNodes) |>
+            # addNodes = data.frame(label = "Expired project", shape = "circle",
+            #                       color = "lightblue")) |>
   visPhysics(solver = "forceAtlas2Based",
-             forceAtlas2Based = list(gravitationalConstant = -150))
-  #visLegend(main="Legend", position="right", addNodes = lnodes, ncol=1)
+             forceAtlas2Based = list(gravitationalConstant = -180))
   # visPhysics(solver = "barnesHut",
   #            barnesHut = list(gravity = -200, centralGravity = 0.05,
   #                             springLength = 100, springConstant = 0.05,

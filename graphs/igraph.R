@@ -399,6 +399,14 @@ par(mfrow = c(1, 2))
 plot(kc, g)
 plot(gc, g)
 
+####################### Plot by color of nodes #######################
+V(g)$technology <- c("R", "R", "?", "R", "R", "R", "P", "P", "P", "P")
+V(g) color <- V(g)$technology
+
+V(g)$color <- gsub("R", "blue3", V(g)$color)
+V(g)$color <- gsub("P", "green4", V(g)$color)
+V(g)$color <- gsub("R", "gray", V(g)$color)
+
 
 ################# Interactive ###############################
 graphjs(g)

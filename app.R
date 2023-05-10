@@ -34,17 +34,18 @@ ui <- fluidPage(
 )
 
 server <- function(input, output) {
+  proxy <- visNetworkProxy("visnet")
   observe({
     selected_nodes <- input$selected_nodes
     if (is.null(selected_nodes) || selected_nodes == "All") {
-      vis.nodes$color.background <- ifelse(vis.nodes$running, "green", "lightblue")
+      vis.nodes$color.background <- ifelse(vis.nodes$running, "lightgreen", "lightblue")
       #vis.nodes$color.highlight.background <- "orange"    
       } else {
       vis.nodes$color.background <- ifelse(nodes$name.sdg %in% selected_nodes, "orange", "lightgray")
       #vis.nodes$color.highlight.background <- "orange"
       }
-    visNetworkProxy("visnet") |>
-      visUpdateNodes(nodes = vis.nodes)
+    vis.nodes$shape <- shapes_rep[1:num_nodes]
+    proxy %>% visUpdateNodes(vis.nodes)
   
   # output$visnet <- renderVisNetwork({
   #   visnet %>%
